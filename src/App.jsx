@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import Footer from "./components/footer";
-import Header from "./components/header";
-import Home from "./components/home";
-import Donation from "./components/donation";
+import Footer from "./Components/footer";
+import Header from "./Components/header";
+import Home from "./Components/home";
+import Donation from "./Components/donation";
 import { verifyToken } from "./services/authService";
-import About from "./components/about";
-import Meetups from "./components/Meetups";
+import About from "./Components/about";
+import Meetups from "./Components/Meetups";
 import { UserProvider } from "./context/UserContext";
 import {jwtDecode} from "jwt-decode";
 import { toast, ToastContainer } from "react-toastify";
