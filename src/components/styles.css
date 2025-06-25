@@ -1,0 +1,55 @@
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1s ease-in-out;
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 1s ease-in-out;
+}
+
+/* Smooth transition effect */
+.transition-transform {
+  transition: transform 0.3s ease-in-out;
+}
+
+.transition-opacity {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.donation-chart-container {
+  text-align: center;
+}
+
+.tier-info {
+  margin-top: 20px;
+}
+
+.tier-info h3 {
+  color: #333;
+}
+
+.tier-info p {
+  font-size: 14px;
+  color: #666;
+}
