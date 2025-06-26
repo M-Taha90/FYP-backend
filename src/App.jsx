@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Footer from "./Components/Footer";
 import Header from "./Components/header";
@@ -8,18 +13,15 @@ import { verifyToken } from "./services/authService";
 import About from "./Components/about";
 import Meetups from "./Components/Meetups";
 import { UserProvider } from "./context/UserContext";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  
   useEffect(() => {
-
     const params = new URLSearchParams(window.location.search);
     const tokenFromURL = params.get("token");
 
@@ -33,12 +35,11 @@ function App() {
 
     const token = localStorage.getItem("token");
     console.log(token);
-    
 
     if (token) {
       try {
         console.log("Inside");
-        
+
         // Decode token to check expiry proactively
 
         const { exp } = jwtDecode(token);
@@ -77,7 +78,7 @@ function App() {
 
   const ProtectedRoute = ({ user, children }) => {
     const [shouldRedirect, setShouldRedirect] = useState(false);
-  
+
     useEffect(() => {
       if (!user || !user.id) {
         toast.warning("Please login or sign up to view this page!", {
@@ -89,28 +90,27 @@ function App() {
           draggable: true,
           toastId: "login-warning",
         });
-  
+
         // Set redirection after the toast is displayed
         const redirectTimer = setTimeout(() => {
           setShouldRedirect(true);
         }, 3500); // Wait for 3.5 seconds (toast duration)
-  
+
         return () => clearTimeout(redirectTimer);
       }
     }, [user]);
-  
+
     if (shouldRedirect) {
       return <Navigate to="/" />;
     }
-  
+
     if (!user || !user.id) {
       // Prevent rendering the protected page
       return null;
     }
-  
+
     return children;
   };
-  
 
   return (
     <UserProvider>
@@ -125,18 +125,26 @@ function App() {
         <main className="bg-white dark:bg-black">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/donation" element={<Donation user={user}
-          setUser={setUser}
-            />} />
+            <Route
+              path="/donation"
+              element={<Donation user={user} setUser={setUser} />}
+            />
             <Route path="/about" element={<About />} />
-            <Route path="/meetups" element={<ProtectedRoute user={user}> <Meetups user={user}
-          setUser={setUser}/> </ProtectedRoute>} />
+            <Route
+              path="/meetups"
+              element={
+                <ProtectedRoute user={user}>
+                  {" "}
+                  <Meetups user={user} setUser={setUser} />{" "}
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </main>
 
         <Footer />
       </Router>
-      <ToastContainer /> 
+      <ToastContainer />
     </UserProvider>
   );
 }
